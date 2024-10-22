@@ -4,7 +4,20 @@ import shutil
 
 import cv2
 
-from modules.tools import check_file_extension, get_video_info
+from modules.tools import (
+    check_file_extension,
+    get_all_filenames_in_inputs,
+    get_video_info,
+)
+
+
+def register_all_input_files():
+    files = get_all_filenames_in_inputs()
+    inputs = "inputs"
+
+    for file in files:
+        file_path = os.path.join(inputs, file)
+        add_file(file_path)
 
 
 def add_file(file_path: str):
@@ -41,8 +54,8 @@ def get_file_info(file_path: str, file_type: str):
 
 def add_video_info(video, file_info):
     vid = cv2.VideoCapture(video)
-    width, height, fps, frames = get_video_info(vid)
-    file_info.update({"video_height": height, "video_width": width, "fps": fps, "frames": frames})
+    width, height, fps, frames, duration = get_video_info(vid)
+    file_info.update({"height": height, "width": width, "fps": fps, "frames": frames, "duration_sec": duration})
     vid.release()
 
 
