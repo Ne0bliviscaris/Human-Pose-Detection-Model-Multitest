@@ -1,15 +1,8 @@
-import time
+from modules.multi_model import run_all_models
+from modules.tools import get_all_filenames_in_inputs
 
-import models.yolo11.yolo11 as yolo11
+files = get_all_filenames_in_inputs()
 
-vid = "pexels.mp4"
-img = "1.jpg"
-
-results, avg_frame_time, execution_time = yolo11.process_file(vid)
-print(
-    f"""
-    YOLOv11:
-    Average frame time:   {avg_frame_time: .5f} s,
-    Total execution_time: {execution_time: .5f} s
-    """
-)
+# file = files[2]
+for file in files:
+    run_all_models(file)
