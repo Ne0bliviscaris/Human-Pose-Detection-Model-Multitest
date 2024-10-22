@@ -83,15 +83,13 @@ def process_image(filename):
         # "imgsz": vid_size,  # inference size (pixels)
     }
 
-    start_time = time.time()  # Start time measurement
     # Execute the model
+    start_time = time.time()  # Start time measurement
     result = model(input_path, device="cpu", **inference_args)
-
     end_time = time.time()  # End time measurement
-    # Total time taken
-    run_time = end_time - start_time
-    # Number of frames processed
-    frames = len(result)
+
+    run_time = end_time - start_time  # Total time taken
+    frames = len(result)  # Number of frames processed
 
     # Save the output to a predefined path
     cv2.imwrite(output_path, result[0].plot())
