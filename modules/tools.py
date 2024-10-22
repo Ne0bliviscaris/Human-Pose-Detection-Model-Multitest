@@ -1,6 +1,14 @@
+import json
 import os
 
 import cv2
+
+
+def open_data_json():
+    path = "modules\\data.json"
+    with open(path, "r") as file:
+        data = json.load(file)
+    return data
 
 
 def get_video_info(vid):
@@ -8,7 +16,8 @@ def get_video_info(vid):
     height = int(vid.get(cv2.CAP_PROP_FRAME_HEIGHT))
     fps = int(vid.get(cv2.CAP_PROP_FPS))
     frames = int(vid.get(cv2.CAP_PROP_FRAME_COUNT))
-    return width, height, fps, frames
+    duration = duration = frames / fps if fps > 0 else 0
+    return width, height, fps, frames, duration
 
 
 def get_path_from_filename(filename):
@@ -43,3 +52,13 @@ def check_file_extension(filename: str):
         return "video"
     else:
         return "unknown"
+
+
+import time
+
+
+def get_all_filenames_in_inputs() -> list:
+    """Get all filenames in the inputs folder."""
+    inputs = "inputs"
+    filenames = os.listdir(inputs)
+    return filenames
