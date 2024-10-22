@@ -1,105 +1,116 @@
 {
     "images": {
         "1.jpg": {
-            "height": 400,
-            "width": 400,
-            "file_size": "1.2MB",
-            "file": "1.jpg"
+            "file_size": "0.06MB",
+            "file": "1.jpg",
+            "height": 682,
+            "width": 1024
         }
     },
     "videos": {
-        "pexels.mp4": {
-            "file_size": "2.95MB",
-            "file": "pexels.mp4",
-            "video_height": 640,
-            "video_width": 360,
-            "fps": 30,
-            "frames": 421
-        },
         "moj1_1000.mp4": {
             "file_size": "2.93MB",
             "file": "moj1_1000.mp4",
-            "video_height": 562,
-            "video_width": 1000,
+            "height": 562,
+            "width": 1000,
             "fps": 30,
-            "frames": 509
-        },
-        "moj2_1000.mp4": {
-            "file_size": "2.63MB",
-            "file": "moj2_1000.mp4",
-            "video_height": 562,
-            "video_width": 1000,
-            "fps": 30,
-            "frames": 473
-        },
-        "moj2_400.mp4": {
-            "file_size": "0.90MB",
-            "file": "moj2_400.mp4",
-            "video_height": 226,
-            "video_width": 400,
-            "fps": 30,
-            "frames": 473
+            "frames": 509,
+            "duration_sec": 16.966666666666665
         },
         "moj1_400.mp4": {
             "file_size": "0.97MB",
             "file": "moj1_400.mp4",
-            "video_height": 226,
-            "video_width": 400,
+            "height": 226,
+            "width": 400,
             "fps": 30,
-            "frames": 509
+            "frames": 509,
+            "duration_sec": 16.966666666666665
         },
-        "vid1_400.mp4": {
-            "file_size": "0.21MB",
-            "file": "vid1_400.mp4",
-            "video_height": 226,
-            "video_width": 400,
-            "fps": 50,
-            "frames": 174
-        },
-        "vid2_400.mp4": {
-            "file_size": "1.11MB",
-            "file": "vid2_400.mp4",
-            "video_height": 226,
-            "video_width": 400,
-            "fps": 25,
-            "frames": 609
-        },
-        "vid3_400.mp4": {
-            "file_size": "0.06MB",
-            "file": "vid3_400.mp4",
-            "video_height": 226,
-            "video_width": 400,
+        "moj2_1000.mp4": {
+            "file_size": "2.63MB",
+            "file": "moj2_1000.mp4",
+            "height": 562,
+            "width": 1000,
             "fps": 30,
-            "frames": 105
+            "frames": 473,
+            "duration_sec": 15.766666666666667
         },
-        "vid3_1000.mp4": {
-            "file_size": "0.25MB",
-            "file": "vid3_1000.mp4",
-            "video_height": 562,
-            "video_width": 1000,
+        "moj2_400.mp4": {
+            "file_size": "0.90MB",
+            "file": "moj2_400.mp4",
+            "height": 226,
+            "width": 400,
             "fps": 30,
-            "frames": 105
+            "frames": 473,
+            "duration_sec": 15.766666666666667
         },
-        "vid2_1000.mp4": {
-            "file_size": "6.60MB",
-            "file": "vid2_1000.mp4",
-            "video_height": 562,
-            "video_width": 1000,
-            "fps": 25,
-            "frames": 609
+        "pexels.mp4": {
+            "file_size": "2.95MB",
+            "file": "pexels.mp4",
+            "height": 640,
+            "width": 360,
+            "fps": 30,
+            "frames": 421,
+            "duration_sec": 14.033333333333333
         },
         "vid1_1000.mp4": {
             "file_size": "1.31MB",
             "file": "vid1_1000.mp4",
-            "video_height": 562,
-            "video_width": 1000,
+            "height": 562,
+            "width": 1000,
             "fps": 50,
-            "frames": 174
+            "frames": 174,
+            "duration_sec": 3.48
+        },
+        "vid1_400.mp4": {
+            "file_size": "0.21MB",
+            "file": "vid1_400.mp4",
+            "height": 226,
+            "width": 400,
+            "fps": 50,
+            "frames": 174,
+            "duration_sec": 3.48
+        },
+        "vid2_1000.mp4": {
+            "file_size": "6.60MB",
+            "file": "vid2_1000.mp4",
+            "height": 562,
+            "width": 1000,
+            "fps": 25,
+            "frames": 609,
+            "duration_sec": 24.36
+        },
+        "vid2_400.mp4": {
+            "file_size": "1.11MB",
+            "file": "vid2_400.mp4",
+            "height": 226,
+            "width": 400,
+            "fps": 25,
+            "frames": 609,
+            "duration_sec": 24.36
+        },
+        "vid3_1000.mp4": {
+            "file_size": "0.25MB",
+            "file": "vid3_1000.mp4",
+            "height": 562,
+            "width": 1000,
+            "fps": 30,
+            "frames": 105,
+            "duration_sec": 3.5
+        },
+        "vid3_400.mp4": {
+            "file_size": "0.06MB",
+            "file": "vid3_400.mp4",
+            "height": 226,
+            "width": 400,
+            "fps": 30,
+            "frames": 105,
+            "duration_sec": 3.5
         }
     },
     "models": {
-        "YOLOv11": {
-            "outputs": "outputs\\yolov11",
+        "yolo11n-pose": {
+            "output_path": "outputs\\yolo11n-pose",
             "vid1_400.mp4": {
                 "avg_frame_time": 2.05555,
                 "execution_time": 2.05555
