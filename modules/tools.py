@@ -11,6 +11,12 @@ def open_data_json():
     return data
 
 
+def save_data_json(data):
+    path = "modules\\data.json"
+    with open(path, "w") as file:
+        json.dump(data, file, indent=4)
+
+
 def get_video_info(vid):
     width = int(vid.get(cv2.CAP_PROP_FRAME_WIDTH))
     height = int(vid.get(cv2.CAP_PROP_FRAME_HEIGHT))
