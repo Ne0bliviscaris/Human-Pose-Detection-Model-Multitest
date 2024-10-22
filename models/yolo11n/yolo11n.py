@@ -8,6 +8,7 @@ from modules.tools import (
     get_path_from_filename,
     get_video_info,
     open_data_json,
+    save_data_json,
     set_output_path,
 )
 
@@ -47,7 +48,7 @@ def process_video(filename):
     output_path = set_output_path(modelname, filename)
 
     vid = cv2.VideoCapture(input_path)
-    width, height, fps, frames = get_video_info(vid)
+    width, height, fps, frames, duration = get_video_info(vid)
 
     vid_size = (width, height)
     inference_args = set_inference_args(vid_size)
@@ -110,14 +111,45 @@ def process_file(filename):
         results, process_time, frames = process_video(filename)
         avg_frame_time = process_time / frames
         execution_time = time.time() - start_time
-        return results, avg_frame_time, execution_time
 
     elif file_type == "image":
         results, process_time, frames = process_image(filename)
+        avg_frame_time = process_time / frames
         execution_time = time.time() - start_time
-        return results, process_time, execution_time
 
     else:
         print("Unsupported file type")
         execution_time = time.time() - start_time
         return "Unsupported file type", 0, execution_time
+
+    print_report(avg_frame_time, execution_time)
+    performance_report(avg_frame_time, execution_time, filename)
+    return results
+
+
+def print_report(avg_frame_time, execution_time):
+    """Print performance report."""
+    print(
+        f"""
+        {modelname}:
+        Average frame time:   {avg_frame_time: .5f} s,
+        Total execution_time: {execution_time: .5f} s
+        """
+    )
+    return avg_frame_time, execution_time
+
+
+def performance_report(avg_frame_time, execution_time, filename: str):
+    """Save performance report to data.json."""
+
+    # Load existing data from data.json
+    data = open_data_json()
+
+    # Update the data with new performance metrics
+    if modelname not in data["models"]:
+        data["models"][modelname] = {}
+
+    data["models"][modelname][filename] = {"avg_frame_time": avg_frame_time, "execution_time": execution_time}
+
+    # Save updated data back to data.json
+    save_data_json(data)
