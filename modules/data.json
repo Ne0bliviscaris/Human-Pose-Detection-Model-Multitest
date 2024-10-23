@@ -111,7 +111,7 @@
     "models": {
         "yolo11n-pose": {
             "name": "yolo11n-pose",
-            "description": "YOLOv5 model for pose estimation",
+            "description": "YOLOv5 model for pose estimation.",
             "possible_inputs": "video, image, stream",
             "output_path": "outputs\\yolo11n-pose",
             "model_size": "5.96 MB",
@@ -120,10 +120,10 @@
             "model_link": "https://docs.ultralytics.com/tasks/pose/",
             "results": {
                 "1.jpg": {
-                    "avg_frame_time": " 2.48582",
-                    "execution_time": " 2.50294",
+                    "avg_frame_time": " 2.51877",
+                    "execution_time": " 2.53487",
                     "file_path": "outputs\\yolo11n-pose\\1.jpg",
-                    "model_init_time": " 0.04799"
+                    "model_init_time": " 0.05026"
                 },
                 "moj1_400.mp4": {
                     "avg_frame_time": " 0.00283",
