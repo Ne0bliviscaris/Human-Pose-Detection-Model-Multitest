@@ -5,6 +5,7 @@ from ultralytics import YOLO
 
 from modules.tools import (
     check_file_extension,
+    ensure_json_structure,
     get_path_from_filename,
     get_video_info,
     open_data_json,
@@ -17,9 +18,9 @@ modelname = "yolo11n-pose"
 
 def model_info():
     """Model information"""
-    model_info = {
+    return {
         "name": "yolo11n-pose",
-        "description": "YOLOv5 model for pose estimation",
+        "description": "YOLOv5 model for pose estimation.",
         "possible_inputs": "video, image, stream",
         "output_path": "outputs\\yolo11n-pose",
         "model_size": "5.96 MB",
@@ -27,7 +28,6 @@ def model_info():
         "device": "cpu",
         "model_link": "https://docs.ultralytics.com/tasks/pose/",
     }
-    return model_info
 
 
 def initialize_model():
@@ -174,7 +174,7 @@ def save_performance_report(avg_frame_time, total_execution_time, model_init_dur
 
     # Load existing data from data.json
     data = open_data_json()
-    data = ensure_json_structure(data)
+    data = ensure_json_structure(data, modelname)
 
     data["models"][modelname]["results"][filename] = {
         "avg_frame_time": f"{avg_frame_time: .5f}",
@@ -187,27 +187,4 @@ def save_performance_report(avg_frame_time, total_execution_time, model_init_dur
     save_data_json(data)
 
 
-def ensure_json_structure(data):
-    """Ensure that the data.json structure is correct."""
-    if "models" not in data:
-        data["models"] = {}
-    if modelname not in data["models"]:
-        data["models"][modelname] = {}
-        update_model_info()
-    if "results" not in data["models"][modelname]:
-        data["models"][modelname]["results"] = {}
-    return data
-
-
-def update_model_info():
-    """Add model information to data.json."""
-    data = open_data_json()
-    if "models" not in data:
-        data["models"] = {}
-    if modelname not in data["models"]:
-        data["models"][modelname] = {}
-    if "results" not in data["models"][modelname]:
-        data["models"][modelname]["results"] = {}
-
-    data["models"][modelname] = model_info()
-    save_data_json(data)
+print(model_info()["name"])

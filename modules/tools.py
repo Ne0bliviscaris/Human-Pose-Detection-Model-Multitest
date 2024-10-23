@@ -65,3 +65,28 @@ def get_all_filenames_in_inputs() -> list:
     inputs = "inputs"
     filenames = os.listdir(inputs)
     return filenames
+
+
+def update_model_info(model_info):
+    """Add model information to data.json."""
+    modelname = model_info["name"]
+    data = open_data_json()
+    data = ensure_json_structure(data, modelname)
+
+    # Overwrite info from model_info without deleting results
+    for key, value in model_info.items():
+        data["models"][modelname][key] = value
+
+    save_data_json(data)
+
+
+def ensure_json_structure(data, modelname):
+    """Ensure that the data.json structure is correct."""
+    if "models" not in data:
+        data["models"] = {}
+    if modelname not in data["models"]:
+        data["models"][modelname] = {}
+
+    if "results" not in data["models"][modelname]:
+        data["models"][modelname]["results"] = {}
+    return data
