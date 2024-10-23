@@ -60,9 +60,6 @@ def check_file_extension(filename: str):
         return "unknown"
 
 
-import time
-
-
 def get_all_filenames_in_inputs() -> list:
     """Get all filenames in the inputs folder."""
     inputs = "inputs"
