@@ -110,54 +110,27 @@
     },
     "models": {
         "yolo11n-pose": {
+            "name": "yolo11n-pose",
+            "description": "YOLOv5 model for pose estimation",
+            "possible_inputs": "video, image, stream",
             "output_path": "outputs\\yolo11n-pose",
-            "1.jpg": {
-                "avg_frame_time": 2.5415241718292236,
-                "execution_time": 2.582648992538452
-            },
-            "moj1_1000.mp4": {
-                "avg_frame_time": 0.006683169273121652,
-                "execution_time": 44.94016122817993
-            },
-            "moj1_400.mp4": {
-                "avg_frame_time": 0.0028791338615192646,
-                "execution_time": 23.901050806045532
-            },
-            "moj2_1000.mp4": {
-                "avg_frame_time": 0.0066293319234384295,
-                "execution_time": 41.41479301452637
-            },
-            "moj2_400.mp4": {
-                "avg_frame_time": 0.003108855785829572,
-                "execution_time": 19.940795183181763
-            },
-            "pexels.mp4": {
-                "avg_frame_time": 0.003849679104222821,
-                "execution_time": 25.715689420700073
-            },
-            "vid1_1000.mp4": {
-                "avg_frame_time": 0.0068488449885927396,
-                "execution_time": 15.495171546936035
-            },
-            "vid1_400.mp4": {
-                "avg_frame_time": 0.0031409880210613384,
-                "execution_time": 7.267564296722412
-            },
-            "vid2_1000.mp4": {
-                "avg_frame_time": 0.006643404514331536,
-                "execution_time": 54.28317427635193
-            },
-            "vid2_400.mp4": {
-                "avg_frame_time": 0.002000877618398181,
-                "execution_time": 24.674386262893677
-            },
-            "vid3_1000.mp4": {
-                "avg_frame_time": 0.006303719111851284,
-                "execution_time": 9.441222667694092
-            },
-            "vid3_400.mp4": {
-                "avg_frame_time": 0.003001971471877325,
-                "execution_time": 4.443069696426392
+            "model_size": "5.96 MB",
+            "model_path": "models\\yolo11n\\model\\yolo11n-pose.pt",
+            "device": "cpu",
+            "model_link": "https://docs.ultralytics.com/tasks/pose/",
+            "results": {
+                "1.jpg": {
+                    "avg_frame_time": " 2.48582",
+                    "execution_time": " 2.50294",
+                    "file_path": "outputs\\yolo11n-pose\\1.jpg",
+                    "model_init_time": " 0.04799"
+                },
+                "moj1_400.mp4": {
+                    "avg_frame_time": " 0.00283",
+                    "execution_time": " 22.53232",
+                    "file_path": "outputs\\yolo11n-pose\\moj1_400.mp4",
+                    "model_init_time": " 0.04710"
+                }
             }
         }
     }
