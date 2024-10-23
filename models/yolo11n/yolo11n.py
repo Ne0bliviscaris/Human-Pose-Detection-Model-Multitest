@@ -13,7 +13,27 @@ from modules.tools import (
 )
 
 modelname = "yolo11n-pose"
-model = YOLO(f"models\\yolo11n\\model\\{modelname}.pt")
+
+
+def model_info():
+    """Model information"""
+    model_info = {
+        "name": "yolo11n-pose",
+        "description": "YOLOv5 model for pose estimation",
+        "possible_inputs": "video, image, stream",
+        "output_path": "outputs\\yolo11n-pose",
+        "model_size": "5.96 MB",
+        "model_path": "models\\yolo11n\\model\\yolo11n-pose.pt",
+        "device": "cpu",
+        "model_link": "https://docs.ultralytics.com/tasks/pose/",
+    }
+    return model_info
+
+
+def initialize_model():
+    """Initialize the yolo11n-pose model."""
+    model = YOLO(f"models\\yolo11n\\model\\{modelname}.pt")
+    return model
 
 
 def frame_visualization(frame):
@@ -43,7 +63,7 @@ def set_inference_args(vid_size):
     }
 
 
-def process_video(filename):
+def process_video(model, filename):
     """Process video frame by frame and save the output."""
     input_path = get_path_from_filename(filename)
     output_path = set_output_path(modelname, filename)
@@ -78,7 +98,7 @@ def process_video(filename):
     return results, execution_time, frames
 
 
-def process_image(filename):
+def process_image(model, filename):
     """Process and save the output."""
     input_path = get_path_from_filename(filename)
     output_path = set_output_path(modelname, filename)
@@ -108,27 +128,32 @@ def process_image(filename):
     return result, run_time, frames
 
 
-def process_file(filename):
+def process_file(filename: str):
     """Process the file based on its extension."""
-    start_time = time.time()
     file_type = check_file_extension(filename)
+
+    model_init_time = time.time()
+    model = initialize_model()
+    model_init_duration = time.time() - model_init_time
+
+    processing_start_time = time.time()
     if file_type == "video":
-        results, process_time, frames = process_video(filename)
-        avg_frame_time = process_time / frames
-        execution_time = time.time() - start_time
+        results, process_duration, frames = process_video(model, filename)
+        avg_frame_time = process_duration / frames
+        execution_time = time.time() - processing_start_time
 
     elif file_type == "image":
-        results, process_time, frames = process_image(filename)
-        avg_frame_time = process_time / frames
-        execution_time = time.time() - start_time
+        results, process_duration, frames = process_image(model, filename)
+        avg_frame_time = process_duration / frames
+        execution_time = time.time() - processing_start_time
 
     else:
         print("Unsupported file type")
-        execution_time = time.time() - start_time
+        execution_time = time.time() - processing_start_time
         return "Unsupported file type", 0, execution_time
 
     print_report(avg_frame_time, execution_time)
-    performance_report(avg_frame_time, execution_time, filename)
+    save_performance_report(avg_frame_time, execution_time, model_init_duration, filename)
     return results
 
 
@@ -144,17 +169,45 @@ def print_report(avg_frame_time, execution_time):
     return avg_frame_time, execution_time
 
 
-def performance_report(avg_frame_time, execution_time, filename: str):
+def save_performance_report(avg_frame_time, total_execution_time, model_init_duration, filename):
     """Save performance report to data.json."""
 
     # Load existing data from data.json
     data = open_data_json()
+    data = ensure_json_structure(data)
 
-    # Update the data with new performance metrics
-    if modelname not in data["models"]:
-        data["models"][modelname] = {}
-
-    data["models"][modelname][filename] = {"avg_frame_time": avg_frame_time, "execution_time": execution_time}
+    data["models"][modelname]["results"][filename] = {
+        "avg_frame_time": f"{avg_frame_time: .5f}",
+        "execution_time": f"{total_execution_time: .5f}",
+        "file_path": f"outputs\\{modelname}\\{filename}",
+        "model_init_time": f"{model_init_duration: .5f}",
+    }
 
     # Save updated data back to data.json
+    save_data_json(data)
+
+
+def ensure_json_structure(data):
+    """Ensure that the data.json structure is correct."""
+    if "models" not in data:
+        data["models"] = {}
+    if modelname not in data["models"]:
+        data["models"][modelname] = {}
+        update_model_info()
+    if "results" not in data["models"][modelname]:
+        data["models"][modelname]["results"] = {}
+    return data
+
+
+def update_model_info():
+    """Add model information to data.json."""
+    data = open_data_json()
+    if "models" not in data:
+        data["models"] = {}
+    if modelname not in data["models"]:
+        data["models"][modelname] = {}
+    if "results" not in data["models"][modelname]:
+        data["models"][modelname]["results"] = {}
+
+    data["models"][modelname] = model_info()
     save_data_json(data)
