@@ -36,7 +36,8 @@ def set_inference_args(vid_size):
         "conf": 0.7,  # confidence threshold
         "iou": 0.5,  # NMS IoU threshold
         "max_det": 1,  # maximum number of detections per image
-        "stream": True,  # stream results
+        # with stream mode can't extract keypoints
+        "stream": False,  # stream results
         # "show-boxes": False,  # display bounding boxes
         "imgsz": vid_size,  # inference size (pixels)
     }
@@ -69,6 +70,8 @@ def process_video(filename):
         end_time = time.time()
         execution_time += end_time - start_time
 
+    # print(f"\nFirst frame Keypoints:\n{results[0].keypoints}\n")  # Print keypoints from the first frame
+
     # Zwolnij zasoby
     vid.release()
     out.release()
@@ -97,6 +100,8 @@ def process_image(filename):
 
     run_time = end_time - start_time  # Total time taken
     frames = len(result)  # Number of frames processed
+
+    # print(f"\nKeypoints:\n{result[0].keypoints}\n")  # Print keypoints
 
     # Save the output to a predefined path
     cv2.imwrite(output_path, result[0].plot())
